@@ -136,3 +136,9 @@ use with form / on change -> set stage / on submit -> form value
 ```bash
 npm install lucide-react
 ```
+
+## Step x validate from with Zod
+```bash
+npm install @hookform/resolvers
+npm i zod
+```
