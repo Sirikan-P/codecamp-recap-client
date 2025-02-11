@@ -142,3 +142,8 @@ npm install lucide-react
 npm install @hookform/resolvers
 npm i zod
 ```
+
+## Step x Global state with zustand
+```bash
+npm install zustand
+```

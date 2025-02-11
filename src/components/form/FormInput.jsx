@@ -1,14 +1,14 @@
 import React from 'react'
 
-function FormInput({register ,name , errors}) {
-    console.log(errors[name])
+function FormInput({register ,name ,type="text" , errors}) {
+        //console.log(errors[name])
     //  || first true
     //  && first false
     return (
         <div>
             <input
                 placeholder= {name} //dynamic
-                type="text"
+                type={type}
                 {...register( name )}
                 className="
                     border border-gray-400 
@@ -17,7 +17,8 @@ function FormInput({register ,name , errors}) {
                     p-1 px-4 "
             />
             {
-                errors[name] && <p className="text-sm text-red-500"> {errors[name].message } </p>
+                errors[name] && 
+                <p className="text-sm text-red-500"> {errors[name].message } </p>
             }
         </div>
     )

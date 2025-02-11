@@ -1,5 +1,3 @@
-import axios from "axios"
-import { useState } from "react"
 import { createAlert } from "../../utils/createAlert"
 import { useForm } from "react-hook-form"
 import FormInput from "../../components/form/formInput"
@@ -8,19 +6,21 @@ import Buttons from "../../components/form/ฺButtons"
 //validation
 import { registerSchema } from "../../utils/validators"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { actionRegister } from "../../api/auth"
 
 function Register1() {
 
 //JS
-const { register , handleSubmit ,formState } = useForm({
+const { register , handleSubmit ,formState ,reset } = useForm({
     //use validate
     resolver:zodResolver(registerSchema)
 })
 // register use = naming input +state + onchange  
 // handle Submit use = hdlSubmit
 // formState 
+// reset is function
 
-const {  isSubmitting , errors } = formState // boolean 
+const {  isSubmitting , errors } = formState // boolean , error object
 console.log(errors)
 
 const hdlSubmit = async (value)=>{
@@ -30,15 +30,17 @@ const hdlSubmit = async (value)=>{
 
 
     try {
-        const res = await axios.post('http://localhost:8000/api/register',value) //value data from state 
+        const res = await actionRegister(value) //value data from state 
        
-        //console.log(res)
+            //console.log(res)
+        reset()
         createAlert("success","register success")
     } catch (error) {
       
-        //console.log(error.response.data.message)
+
         //sweet alert
-        createAlert("info",error.response.data.message)
+        createAlert("info",error.response?.data?.message)
+            //console.log(error.response.data.message)
     }
 
 }
@@ -65,9 +67,9 @@ const hdlSubmit = async (value)=>{
 
                     <FormInput register={register} name = {"email"} errors={errors}/>
                     <FormInput register={register} name = {"firstname"} errors={errors}/>
-                    <FormInput register={register} name = {"lastname"} errors={errors}/>
-                    <FormInput register={register} name = {"password"} errors={errors}/>
-                    <FormInput register={register} name = {"confirmPassword"} errors={errors}/>
+                    <FormInput register={register} name = {"lastname"}  errors={errors}/>
+                    <FormInput register={register} name = {"password"} type="password" errors={errors}/>
+                    <FormInput register={register} name = {"confirmPassword"} type="password" errors={errors}/>
 
                 </div>
                 <div className="flex justify-center">
